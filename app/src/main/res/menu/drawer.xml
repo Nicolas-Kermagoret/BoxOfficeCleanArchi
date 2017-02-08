@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawerPopular"
+            android:icon="@drawable/popular"
+            android:checked="false"
+            android:title="@string/popular"/>
+
+        <item
+            android:id="@+id/drawerRated"
+            android:icon="@drawable/star"
+            android:checked="false"
+            android:title="@string/rated"/>
+
+        <item android:title="Genre">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/drawerAction"
+                        android:checked="false"
+                        android:title="Action"/>
+
+                    <item
+                        android:id="@+id/drawerAventure"
+                        android:checked="false"
+                        android:title="Aventure"/>
+
+                    <item
+                        android:id="@+id/drawerAnimation"
+                        android:checked="false"
+                        android:title="Animation"/>
+
+                    <item
+                        android:id="@+id/drawerComedie"
+                        android:checked="false"
+                        android:title="@string/comedy"/>
+
+                    <item
+                        android:id="@+id/drawerDocumentary"
+                        android:checked="false"
+                        android:title="@string/documentary"/>
+
+                    <item
+                        android:id="@+id/drawerDrama"
+                        android:checked="false"
+                        android:title="@string/drama"/>
+
+                    <item
+                        android:id="@+id/drawerFamily"
+                        android:checked="false"
+                        android:title="@string/family"/>
+
+                    <item
+                        android:id="@+id/drawerHorror"
+                        android:checked="false"
+                        android:title="@string/horror"/>
+
+                    <item
+                        android:id="@+id/drawerSF"
+                        android:checked="false"
+                        android:title="@string/SF"/>
+
+                    <item
+                        android:id="@+id/drawerThriller"
+                        android:checked="false"
+                        android:title="@string/thriller"/>
+                </group>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+
+
+</menu>

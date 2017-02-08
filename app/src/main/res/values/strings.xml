@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Box Office</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="search_title">Search movie</string>
+    <string name="search_hint">Search movie</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="release_date">Release date</string>
+    <string name="runtime">Runtime</string>
+    <string name="country">Country</string>
+    <string name="rating">Rating</string>
+    <string name="overview">Overview</string>
+    <string name="genre">Genre</string>
+    <string name="budget">Budget</string>
+    <string name="language">Langage</string>
+    <string name="app_label">Box Office</string>
+    <string name="category">Category</string>
+    <string name="popular">Most popular</string>
+    <string name="rated">Best rated</string>
+    <string name="documentary">Documentary</string>
+    <string name="comedy">Comedy</string>
+    <string name="drama">Drama</string>
+    <string name="family">Family</string>
+    <string name="horror">Horror</string>
+    <string name="SF">Science Fiction</string>
+    <string name="thriller">Thriller</string>
+    <string name="no_internet">No internet connection</string>
+</resources>

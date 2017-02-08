@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_title">Chercher film</string>
+    <string name="search_hint">Chercher film</string>
+
+    <string name="release_date">Date de sortie</string>
+    <string name="runtime">Durée</string>
+    <string name="country">Pays</string>
+    <string name="rating">Note</string>
+    <string name="overview">Résumé</string>
+    <string name="genre">Genre</string>
+    <string name="budget">Budget</string>
+    <string name="language">Langue</string>
+    <string name="category">Catégorie</string>
+    <string name="popular">Populaire</string>
+    <string name="rated">Mieux notés</string>
+    <string name="documentary">Documentaire</string>
+    <string name="comedy">Comédie</string>
+    <string name="drama">Drame</string>
+    <string name="family">Famille</string>
+    <string name="horror">Horreur</string>
+    <string name="SF">Science Fiction</string>
+    <string name="thriller">Thriller</string>
+    <string name="no_internet">Pas de connection</string>
+</resources>
