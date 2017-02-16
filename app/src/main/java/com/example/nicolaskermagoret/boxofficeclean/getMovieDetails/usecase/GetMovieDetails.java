@@ -1,40 +1,36 @@
-package com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase;
+package com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.usecase;
 
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
 import com.example.nicolaskermagoret.boxofficeclean.common.net.RestApi;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.entity.MovieEntityFull;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by nicolaskermagoret on 07/02/2017.
- */
-
-public class GetMovieList implements GetMovieListBaseUseCase {
+public class GetMovieDetails implements GetMovieDetailBaseUseCase {
 
     private RestApi restApi;
-    private GetMovieListBaseUseCase.UseCaseListener listener;
+    private GetMovieDetailBaseUseCase.UseCaseListener listener;
 
-    public GetMovieList(RestApi restApi) {
+    public GetMovieDetails(RestApi restApi) {
         this.restApi = restApi;
     }
 
     @Override
-    public void refreshResponse(String language, String search) {
+    public void refreshResponse(String language, String id) {
 
-        this.restApi.getMoviesList(language, search)
+        this.restApi.getMovieDetails(language, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<SearchResultEntity>() {
+                .subscribe(new Observer<MovieEntityFull>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(SearchResultEntity result) {
+                    public void onNext(MovieEntityFull result) {
                         if (listener != null) {
                             listener.setResponse(result);
                         }

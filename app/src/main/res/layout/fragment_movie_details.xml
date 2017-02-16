@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:paddingTop="16dp"
+    android:useDefaultMargins="true">
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:text="@string/release_date" />
+
+    <TextView
+        android:id="@+id/release_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="0" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:text="@string/runtime" />
+
+    <TextView
+        android:id="@+id/runtime_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="1" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="2"
+        android:text="@string/country" />
+
+    <TextView
+        android:id="@+id/country_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="2" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:text="@string/rating" />
+
+    <RatingBar
+        android:id="@+id/rating_detail"
+        style="@style/customRatingBar"
+        android:layout_column="1"
+        android:layout_gravity="left"
+        android:layout_row="3"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="4"
+        android:text="@string/overview" />
+
+    <TextView
+        android:id="@+id/overview_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="4" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="5"
+        android:text="@string/genre" />
+
+    <TextView
+        android:id="@+id/genre_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="5" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="6"
+        android:text="@string/budget" />
+
+    <TextView
+        android:id="@+id/budget_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="6" />
+
+    <TextView
+        style="@style/left_column"
+        android:layout_column="0"
+        android:layout_row="7"
+        android:text="@string/language" />
+
+    <TextView
+        android:id="@+id/language_detail"
+        style="@style/right_column"
+        android:layout_column="1"
+        android:layout_row="7" />
+
+</GridLayout>
+

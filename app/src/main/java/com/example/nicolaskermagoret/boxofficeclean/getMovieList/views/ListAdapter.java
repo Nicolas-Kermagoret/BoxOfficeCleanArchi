@@ -9,20 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nicolaskermagoret.boxofficeclean.R;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.MovieEntityFull;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.MovieEntityShort;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
-public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.ViewHolder>{
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private SearchResultEntity movieList;
     private Context context;
 
-    public ListAdapter(SearchResultEntity movieList) {
+    public interface MoviesListItemListener {
+        void itemClicked(String id);
+    }
+
+    private MoviesListItemListener listener;
+
+    public ListAdapter(SearchResultEntity movieList, MoviesListItemListener listener) {
         this.movieList = movieList;
+        this.listener = listener;
     }
 
     @Override
@@ -34,18 +37,17 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.movieTitle.setText(movieList.getSearch().get(position).getTitle());
         holder.movieYear.setText(movieList.getSearch().get(position).getYear());
-        if(movieList.getSearch().get(position).getPoster() == null){
+        if (movieList.getSearch().get(position).getPoster() == null) {
             Picasso.with(context)
                     .load(R.drawable.not_available)
                     .placeholder(R.drawable.not_available)
                     .fit()
                     .centerCrop()
                     .into(holder.imageView);
-        }
-        else{
+        } else {
             Picasso.with(context)
                     .load("https://image.tmdb.org/t/p/w500" + movieList.getSearch().get(position).getPoster())
                     .placeholder(R.drawable.not_available)
@@ -53,6 +55,14 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.ViewHolder>{
                     .centerCrop()
                     .into(holder.imageView);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                listener.itemClicked(movieList.getSearch().get(position).getId());
+            }
+        });
     }
 
     @Override
@@ -61,16 +71,17 @@ public class ListAdapter extends  RecyclerView.Adapter<ListAdapter.ViewHolder>{
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView movieTitle,movieYear;
+        private TextView movieTitle, movieYear;
         private ImageView imageView;
+
         public ViewHolder(View view) {
             super(view);
 
-            movieTitle = (TextView)view.findViewById(R.id.movie_title_list);
-            movieYear = (TextView)view.findViewById(R.id.movie_year_list);
-            imageView = (ImageView)view.findViewById(R.id.poster_list);
+            movieTitle = (TextView) view.findViewById(R.id.movie_title_list);
+            movieYear = (TextView) view.findViewById(R.id.movie_year_list);
+            imageView = (ImageView) view.findViewById(R.id.poster_list);
         }
     }
 

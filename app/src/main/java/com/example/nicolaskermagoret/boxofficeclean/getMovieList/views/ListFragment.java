@@ -5,32 +5,29 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.nicolaskermagoret.boxofficeclean.R;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.net.RestApi;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.net.RestApiImpl;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters.BasePresenter;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters.ListPresenter;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters.Presenter;
+import com.example.nicolaskermagoret.boxofficeclean.common.net.RestApi;
+import com.example.nicolaskermagoret.boxofficeclean.common.net.RestApiImpl;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.views.MovieDetailsActivity;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters.ListBasePresenter;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters.MovieListPresenter;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase.GetMovieList;
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase.UseCase;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase.GetMovieListBaseUseCase;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.viewmodels.ResponseBaseViewModel;
 
 
-public class ListFragment extends Fragment implements BaseView {
+public class ListFragment extends Fragment implements BaseListView, ListAdapter.MoviesListItemListener {
 
     public static final String TAG = ListFragment.class.getSimpleName();
 
-    private Presenter presenter;
+    private ListBasePresenter listBasePresenter;
     private RecyclerView recyclerView;
     private ResponseBaseViewModel viewModel;
     private View root;
@@ -47,17 +44,16 @@ public class ListFragment extends Fragment implements BaseView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final RestApi restApi = new RestApiImpl();
-        final UseCase useCase = new GetMovieList(restApi);
+        final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
 
-        this.presenter = new ListPresenter(getContext(), useCase);
+        this.listBasePresenter = new MovieListPresenter(getContext(), getMovieListBaseUseCase);
 
         this.setHasOptionsMenu(true);
 
         this.root = inflater.inflate(R.layout.list_fragment_layout, container, false);
-        this.bindView(root);
         this.initRecyclerView();
         this.drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        this.navigationView = (NavigationView)getActivity().findViewById(R.id.left_drawer);
+        this.navigationView = (NavigationView) getActivity().findViewById(R.id.left_drawer);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -84,27 +80,27 @@ public class ListFragment extends Fragment implements BaseView {
     @Override
     public void onStart() {
         super.onStart();
-        this.presenter.onViewAttached(this);
-        this.presenter.refreshResponse("popular");
+        this.listBasePresenter.onViewAttached(this);
+        this.listBasePresenter.refreshResponse("popular");
     }
 
     @Override
     public void onError(String msg) {
         super.onStop();
-        this.presenter.onViewDetached();
+        this.listBasePresenter.onViewDetached();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.presenter.onDestroy();
-        this.presenter = null;
+        this.listBasePresenter.onDestroy();
+        this.listBasePresenter = null;
     }
 
     @Override
     public void setResponse(ResponseBaseViewModel viewModel) {
         this.viewModel = viewModel;
-        this.listAdapter = new ListAdapter(this.viewModel.getMovieList());
+        this.listAdapter = new ListAdapter(this.viewModel.getMovieList(), this);
         recyclerView.setAdapter(this.listAdapter);
     }
 
@@ -118,52 +114,53 @@ public class ListFragment extends Fragment implements BaseView {
 
     }
 
-    private void bindView(View rootView) {
-
-    }
-
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.drawerPopular:
-                this.presenter.refreshResponse("popular");
+                this.listBasePresenter.refreshResponse("popular");
                 break;
             case R.id.drawerRated:
-                this.presenter.refreshResponse("rated");
+                this.listBasePresenter.refreshResponse("rated");
                 break;
             case R.id.drawerAction:
-                this.presenter.refreshResponse("genre 28");
+                this.listBasePresenter.refreshResponse("genre 28");
                 break;
             case R.id.drawerAventure:
-                this.presenter.refreshResponse("genre 12");
+                this.listBasePresenter.refreshResponse("genre 12");
                 break;
             case R.id.drawerAnimation:
-                this.presenter.refreshResponse("genre 16");
+                this.listBasePresenter.refreshResponse("genre 16");
                 break;
             case R.id.drawerComedie:
-                this.presenter.refreshResponse("genre 35");
+                this.listBasePresenter.refreshResponse("genre 35");
                 break;
             case R.id.drawerDocumentary:
-                this.presenter.refreshResponse("genre 99");
+                this.listBasePresenter.refreshResponse("genre 99");
                 break;
             case R.id.drawerDrama:
-                this.presenter.refreshResponse("genre 18");
+                this.listBasePresenter.refreshResponse("genre 18");
                 break;
             case R.id.drawerFamily:
-                this.presenter.refreshResponse("genre 10751");
+                this.listBasePresenter.refreshResponse("genre 10751");
                 break;
             case R.id.drawerHorror:
-                this.presenter.refreshResponse("genre 27");
+                this.listBasePresenter.refreshResponse("genre 27");
                 break;
             case R.id.drawerSF:
-                this.presenter.refreshResponse("genre 878");
+                this.listBasePresenter.refreshResponse("genre 878");
                 break;
             case R.id.drawerThriller:
-                this.presenter.refreshResponse("genre 53");
+                this.listBasePresenter.refreshResponse("genre 53");
                 break;
             default:
-                this.presenter.refreshResponse("popular");
+                this.listBasePresenter.refreshResponse("popular");
         }
         drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void itemClicked(String id) {
+        MovieDetailsActivity.launchMovieDetailsActivity(getContext(), id);
     }
 }

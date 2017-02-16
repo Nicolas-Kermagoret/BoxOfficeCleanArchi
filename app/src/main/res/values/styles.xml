@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="customRatingBar" parent="android:style/Widget.Material.RatingBar.Small"></style>
+
+    <style name="left_column">
+        <item name="android:layout_gravity">right</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="right_column">
+
+        <item name="android:layout_gravity">left|fill_horizontal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
 </resources>
