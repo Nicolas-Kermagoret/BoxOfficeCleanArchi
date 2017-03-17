@@ -13,8 +13,8 @@ public interface WebService {
     @GET("3/discover/movie?api_key=41ee868c27200b33a3ac13ba6796bd08&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
     Call<SearchResultEntity> getPopularMovie(@Query("language") String language);
 
-//    @GET("3/search/movie?api_key=41ee868c27200b33a3ac13ba6796bd08")
-//    Observable<SearchResultEntity> searchMovie(@Query("query") String film, @Query("language") String language);
+    @GET("3/search/movie?api_key=41ee868c27200b33a3ac13ba6796bd08")
+    Call<SearchResultEntity> searchMovie(@Query("query") String film, @Query("language") String language);
 
     @GET("3/movie/{id}?api_key=41ee868c27200b33a3ac13ba6796bd08")
     Call<MovieEntityFull> getMovie(@Path("id") String id, @Query("language") String language);

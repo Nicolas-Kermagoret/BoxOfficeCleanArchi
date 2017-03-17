@@ -57,6 +57,13 @@ public class RestApiImpl implements RestApi {
                 } else {
                     if (searchSplit[0].equals("genre")) {
                         webCall = webService.getGenreMovie(searchSplit[1], language);
+                    } else if (searchSplit[0].equals("search")) {
+                        String search = "";
+                        int size = searchSplit.length;
+                        for (int i = 1; i < size; i++) {
+                            search += searchSplit[i] + " ";
+                        }
+                        webCall = webService.searchMovie(search, language);
                     }
                 }
                 try {
