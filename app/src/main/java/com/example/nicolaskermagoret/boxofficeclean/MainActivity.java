@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 this.listFragment.refreshResponse("popular");
         }
+        menuItem.setChecked(true);
         drawerLayout.closeDrawers();
     }
 }

@@ -59,6 +59,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         this.init();
         this.listBasePresenter.onViewAttached(this);
         if (!query.isEmpty()) {
+            loading(true);
             this.listBasePresenter.refreshResponse(query);
         }
 
@@ -122,7 +123,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public void loading(boolean isLoading) {
-
+        swipeRefreshLayout.setRefreshing(isLoading);
     }
 
     @Override
@@ -136,6 +137,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     }
 
     public void refreshResponse(String query) {
+        loading(true);
         this.query = query;
         this.listBasePresenter.refreshResponse(query);
     }
