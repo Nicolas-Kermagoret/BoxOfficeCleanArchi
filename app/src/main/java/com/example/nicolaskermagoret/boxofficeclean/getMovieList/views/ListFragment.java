@@ -3,6 +3,7 @@ package com.example.nicolaskermagoret.boxofficeclean.getMovieList.views;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,9 +29,11 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     private ListBasePresenter listBasePresenter;
     private RecyclerView recyclerView;
     private TextView emptyView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ResponseBaseViewModel viewModel;
     private View root;
 
+    private String query;
 
     private ListAdapter listAdapter;
 
@@ -44,7 +47,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
         final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
         Bundle args = getArguments();
-        String query = args.getString("query");
+        this.query = args.getString("query");
 
         this.listBasePresenter = new MovieListPresenter(getContext(), getMovieListBaseUseCase);
 
@@ -68,6 +71,15 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         recyclerView.setLayoutManager(layoutManager);
 
         emptyView = (TextView) this.root.findViewById(R.id.empty_list_textView);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.movie_list_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listBasePresenter.refreshResponse(query);
+            }
+        });
     }
 
     @Override
@@ -90,6 +102,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public void setResponse(ResponseBaseViewModel viewModel) {
+        swipeRefreshLayout.setRefreshing(false);
         recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
         this.viewModel = viewModel;
@@ -100,6 +113,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public void setEmptyResponse() {
+        swipeRefreshLayout.setRefreshing(false);
         recyclerView.setVisibility(View.GONE);
         emptyView.setVisibility(View.VISIBLE);
     }
@@ -120,6 +134,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     }
 
     public void refreshResponse(String query) {
+        this.query = query;
         this.listBasePresenter.refreshResponse(query);
     }
 }
