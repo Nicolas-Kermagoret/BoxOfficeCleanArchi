@@ -19,10 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".getMovieDetails.views.MovieDetailsActivity" />
-        <activity android:name=".search.views.SearchActivity">
+        <activity
+            android:name=".search.views.SearchActivity"
+            android:parentActivityName=".MainActivity">
             <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

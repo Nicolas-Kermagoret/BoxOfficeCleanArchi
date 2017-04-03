@@ -33,7 +33,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     private ResponseBaseViewModel viewModel;
     private View root;
 
-    private String query;
+    private String query = "";
 
     private ListAdapter listAdapter;
 
@@ -47,7 +47,9 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
         final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
         Bundle args = getArguments();
-        this.query = args.getString("query");
+        if (args != null) {
+            this.query = args.getString("query");
+        }
 
         this.listBasePresenter = new MovieListPresenter(getContext(), getMovieListBaseUseCase);
 

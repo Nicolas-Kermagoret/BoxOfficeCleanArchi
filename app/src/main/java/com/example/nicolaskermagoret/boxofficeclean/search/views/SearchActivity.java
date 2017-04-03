@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar ab = getSupportActionBar();
@@ -31,11 +31,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             ab.setDisplayShowTitleEnabled(false);
         }
 
-        this.listFragment = ListFragment.newInstance();
-        Bundle args = new Bundle();
-        args.putString("query", "");
-        listFragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction().replace(R.id.search_content_frame, listFragment, ListFragment.TAG).commit();
+        listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.searchFragment);
     }
 
     @Override
@@ -44,22 +40,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         inflater.inflate(R.menu.menu_search, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.search);
-        searchItem.expandActionView();
         searchView = (SearchView) searchItem.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(this);
+        searchView.setIconified(false);
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
