@@ -1,7 +1,7 @@
 package com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase;
 
-import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
 import com.example.nicolaskermagoret.boxofficeclean.common.net.RestApi;
+import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,6 +16,8 @@ public class GetMovieList implements GetMovieListBaseUseCase {
 
     private RestApi restApi;
     private GetMovieListBaseUseCase.UseCaseListener listener;
+
+    private boolean isEmpty = true;
 
     public GetMovieList(RestApi restApi) {
         this.restApi = restApi;
@@ -38,20 +40,24 @@ public class GetMovieList implements GetMovieListBaseUseCase {
                         if (listener != null) {
                             listener.setResponse(result);
                         }
+                        isEmpty = false;
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (listener != null) {
                             listener.error(e.getMessage());
+                            listener.endTask(isEmpty);
                         }
+                        isEmpty = true;
                     }
 
                     @Override
                     public void onComplete() {
                         if (listener != null) {
-                            listener.endTask();
+                            listener.endTask(isEmpty);
                         }
+                        isEmpty = true;
                     }
                 });
     }

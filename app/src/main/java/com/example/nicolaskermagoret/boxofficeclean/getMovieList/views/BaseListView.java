@@ -12,4 +12,6 @@ public interface BaseListView {
 
     void onNoNetwork();
 
+    void setEmptyResponse();
+
 }

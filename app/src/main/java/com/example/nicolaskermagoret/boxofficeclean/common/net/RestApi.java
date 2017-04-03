@@ -16,4 +16,6 @@ public interface RestApi {
 
     Observable<MovieEntityFull> getMovieDetails(String id, String language);
 
+    void setConnectivity(boolean connected);
+
 }

@@ -46,7 +46,7 @@ public class MovieDetailsFragment extends Fragment implements BaseDetailsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
         this.id = args.getString("id");
-        final RestApi restApi = new RestApiImpl();
+        final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
         final GetMovieDetailBaseUseCase useCase = new GetMovieDetails(restApi);
 
         this.presenter = new MovieDetailsPresenter(getContext(), useCase);

@@ -7,8 +7,12 @@ public class ResponseViewModel implements ResponseBaseViewModel, BaseViewModel {
 
     private SearchResultEntity result;
 
-    public ResponseViewModel(SearchResultEntity result){
+    public ResponseViewModel(SearchResultEntity result) {
         this.result = result;
+    }
+
+    public ResponseViewModel() {
+        
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.nicolaskermagoret.boxofficeclean.R;
 import com.example.nicolaskermagoret.boxofficeclean.common.net.RestApi;
@@ -26,6 +27,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     private ListBasePresenter listBasePresenter;
     private RecyclerView recyclerView;
+    private TextView emptyView;
     private ResponseBaseViewModel viewModel;
     private View root;
 
@@ -39,7 +41,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final RestApi restApi = new RestApiImpl();
+        final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
         final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
         Bundle args = getArguments();
         String query = args.getString("query");
@@ -49,7 +51,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         this.setHasOptionsMenu(true);
 
         this.root = inflater.inflate(R.layout.list_fragment_layout, container, false);
-        this.initRecyclerView();
+        this.init();
         this.listBasePresenter.onViewAttached(this);
         if (!query.isEmpty()) {
             this.listBasePresenter.refreshResponse(query);
@@ -58,12 +60,14 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
         return this.root;
     }
 
-    private void initRecyclerView() {
+    private void init() {
 
         recyclerView = (RecyclerView) this.root.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        emptyView = (TextView) this.root.findViewById(R.id.empty_list_textView);
     }
 
     @Override
@@ -86,9 +90,18 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public void setResponse(ResponseBaseViewModel viewModel) {
+        recyclerView.setVisibility(View.VISIBLE);
+        emptyView.setVisibility(View.GONE);
         this.viewModel = viewModel;
         this.listAdapter = new ListAdapter(this.viewModel.getMovieList(), this);
         recyclerView.setAdapter(this.listAdapter);
+
+    }
+
+    @Override
+    public void setEmptyResponse() {
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
     }
 
     @Override

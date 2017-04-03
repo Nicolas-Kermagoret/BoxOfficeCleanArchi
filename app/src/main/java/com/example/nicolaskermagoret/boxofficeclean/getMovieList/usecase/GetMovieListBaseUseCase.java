@@ -13,7 +13,7 @@ public interface GetMovieListBaseUseCase {
 
         void error(String message);
 
-        void endTask();
+        void endTask(boolean isEmpty);
     }
 
     void refreshResponse(String language, String search);

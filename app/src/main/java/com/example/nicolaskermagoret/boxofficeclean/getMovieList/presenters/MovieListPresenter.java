@@ -2,14 +2,12 @@ package com.example.nicolaskermagoret.boxofficeclean.getMovieList.presenters;
 
 import android.content.Context;
 
-
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.usecase.GetMovieListBaseUseCase;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.viewmodels.ResponseBaseViewModel;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.viewmodels.ResponseViewModel;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.views.BaseListView;
 import com.laimiux.rxnetwork.RxNetwork;
-
 
 import java.util.Locale;
 
@@ -25,7 +23,7 @@ public class MovieListPresenter implements ListBasePresenter, GetMovieListBaseUs
 
     private Subscription connectivityChangeSubscription;
 
-    public MovieListPresenter(Context context, GetMovieListBaseUseCase getMovieListBaseUseCase){
+    public MovieListPresenter(Context context, GetMovieListBaseUseCase getMovieListBaseUseCase) {
         this.context = context;
         this.connected = RxNetwork.getConnectivityStatus(this.context);
         this.getMovieListBaseUseCase = getMovieListBaseUseCase;
@@ -62,8 +60,10 @@ public class MovieListPresenter implements ListBasePresenter, GetMovieListBaseUs
     }
 
     @Override
-    public void endTask() {
-
+    public void endTask(boolean isEmpty) {
+        if (isEmpty) {
+            this.view.setEmptyResponse();
+        }
     }
 
     @Override
