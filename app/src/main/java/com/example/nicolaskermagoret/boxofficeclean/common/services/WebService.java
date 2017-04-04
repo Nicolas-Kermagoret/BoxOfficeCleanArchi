@@ -2,6 +2,7 @@ package com.example.nicolaskermagoret.boxofficeclean.common.services;
 
 import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.entity.MovieEntityFull;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
+import com.example.nicolaskermagoret.boxofficeclean.search.entity.SuggestionResultEntity;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -25,5 +26,7 @@ public interface WebService {
     @GET("3/genre/{genre}/movies?api_key=41ee868c27200b33a3ac13ba6796bd08&include_adult=false&sort_by=created_at.asc")
     Call<SearchResultEntity> getGenreMovie(@Path("genre") String genre, @Query("language") String language);
 
+    @GET("3/search/keyword?api_key=41ee868c27200b33a3ac13ba6796bd08&page=1")
+    Call<SuggestionResultEntity> getSuggestion(@Query("query") String query);
 
 }

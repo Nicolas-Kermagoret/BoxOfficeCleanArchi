@@ -11,10 +11,6 @@ public class ResponseViewModel implements ResponseBaseViewModel, BaseViewModel {
         this.result = result;
     }
 
-    public ResponseViewModel() {
-        
-    }
-
     @Override
     public SearchResultEntity getMovieList() {
         return this.result;

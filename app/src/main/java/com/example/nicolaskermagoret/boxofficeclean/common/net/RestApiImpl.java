@@ -3,6 +3,7 @@ package com.example.nicolaskermagoret.boxofficeclean.common.net;
 import com.example.nicolaskermagoret.boxofficeclean.common.services.WebService;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.entity.MovieEntityFull;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
+import com.example.nicolaskermagoret.boxofficeclean.search.entity.SuggestionResultEntity;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
@@ -125,6 +126,27 @@ public class RestApiImpl implements RestApi {
                 } catch (IOException err) {
                     err.printStackTrace();
                 }
+            }
+        });
+    }
+
+    @Override
+    public Observable<SuggestionResultEntity> getSuggestionList(final String query) {
+        return Observable.create(new ObservableOnSubscribe<SuggestionResultEntity>() {
+            @Override
+            public void subscribe(ObservableEmitter<SuggestionResultEntity> subscriber) throws Exception {
+
+
+                Call<SuggestionResultEntity> webCall = webService.getSuggestion(query);
+                try {
+                    final Response<SuggestionResultEntity> webResponse = webCall.execute();
+                    final SuggestionResultEntity response = webResponse.body();
+
+                    subscriber.onNext(response);
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+                subscriber.onComplete();
             }
         });
     }
