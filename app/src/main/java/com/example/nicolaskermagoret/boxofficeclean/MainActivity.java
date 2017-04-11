@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.nicolaskermagoret.boxofficeclean.about.ui.activity.AboutActivity;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.views.ListFragment;
 import com.example.nicolaskermagoret.boxofficeclean.search.views.SearchActivity;
 
@@ -73,23 +74,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    private void handleIntent(Intent intent) {
-//
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            Log.d("Search", query);
-//            onMovieSearch(query);
-//            //use the query to search your data somehow
-//        }
-//    }
-//
-//
-//    public void onMovieSearch(String query) {
-//        Intent intent = new Intent(this.getBaseContext(), SearchActivity.class);
-//        intent.putExtra("search", query);
-//        this.startActivity(intent);
-//    }
-
     public void selectDrawerItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.drawerPopular:
@@ -128,10 +112,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawerThriller:
                 this.listFragment.refreshResponse("genre 53");
                 break;
+            case R.id.drawerAccount:
+                menuItem.setChecked(false);
+                break;
+            case R.id.drawerAbout:
+                menuItem.setChecked(false);
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
             default:
                 this.listFragment.refreshResponse("popular");
         }
-        menuItem.setChecked(true);
-        drawerLayout.closeDrawers();
     }
 }

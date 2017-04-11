@@ -26,4 +26,8 @@
     <string name="SF">Science Fiction</string>
     <string name="thriller">Thriller</string>
     <string name="no_internet">No internet connection</string>
+    <string name="account">Account</string>
+    <string name="about">About</string>
+    <string name="github">Github</string>
+    <string name="github_link">https://github.com/Nicolas-Kermagoret/BoxOfficeCleanArchi</string>
 </resources>
