@@ -3,6 +3,8 @@ package com.example.nicolaskermagoret.boxofficeclean.search.views;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -12,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +30,7 @@ import com.example.nicolaskermagoret.boxofficeclean.search.usecase.SuggestionBas
 import com.example.nicolaskermagoret.boxofficeclean.search.usecase.SuggestionUseCase;
 import com.example.nicolaskermagoret.boxofficeclean.search.viewModel.SuggestionsBaseViewModel;
 
-public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchBaseView {
+public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchBaseView {
 
     private SearchView searchView;
     private ListFragment listFragment;
@@ -68,6 +71,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         searchView = (SearchView) searchItem.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(this);
+        searchView.setOnSuggestionListener(this);
         searchView.setIconified(false);
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
@@ -131,5 +135,24 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
         suggestionAdapter.changeCursor(cursor);
 
+    }
+
+    @Override
+    public boolean onSuggestionSelect(int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int position) {
+        Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(
+                position);
+        String query = cursor.getString(cursor
+                .getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+        if (listFragment != null) {
+            listFragment.refreshResponse("search " + query);
+        }
+
+        searchView.setQuery(query, true);
+        return true;
     }
 }
