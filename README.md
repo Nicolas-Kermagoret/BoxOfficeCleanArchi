@@ -1,3 +1,5 @@
+# BoxOffice
+
 Android app made during my 2017's internship to learn how to work with technos used in company's projects. (Retrofit, RxJava, Picasso, Clean architecture ...)  
 You can browse box office by differents categories: popular, best rated, genres ...  
 You can also look for a movie using the searching bar (with auto-completion)  
