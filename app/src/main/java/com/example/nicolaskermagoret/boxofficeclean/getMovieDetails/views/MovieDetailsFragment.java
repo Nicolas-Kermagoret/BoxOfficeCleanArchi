@@ -37,6 +37,7 @@ public class MovieDetailsFragment extends Fragment implements BaseDetailsView {
     private TextView genre;
     private TextView budget;
     private TextView language;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     public static Fragment newInstance() {
         return new MovieDetailsFragment();
@@ -90,12 +91,12 @@ public class MovieDetailsFragment extends Fragment implements BaseDetailsView {
         genre = (TextView) view.findViewById(R.id.genre_detail);
         budget = (TextView) view.findViewById(R.id.budget_detail);
         language = (TextView) view.findViewById(R.id.language_detail);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar);
     }
 
     private void fillView() {
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(viewModel.getTitle());
+        collapsingToolbarLayout.setTitle(viewModel.getTitle());
         releaseDate.setText(viewModel.getReleaseDate());
         Picasso.with(getContext())
                 .load(viewModel.getBackDropPath())
