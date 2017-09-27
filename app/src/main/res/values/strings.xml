@@ -30,4 +30,6 @@
     <string name="about">About</string>
     <string name="github">Github</string>
     <string name="github_link">https://github.com/Nicolas-Kermagoret/BoxOfficeCleanArchi</string>
+    <string name="share_message">Just discovered a cool movie: %1$s \nCheck this out: https://www.themoviedb.org/movie/%2$s</string>
+    <string name="share">Share it</string>
 </resources>

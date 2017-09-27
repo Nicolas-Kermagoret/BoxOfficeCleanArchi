@@ -132,8 +132,8 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     }
 
     @Override
-    public void itemClicked(String id) {
-        MovieDetailsActivity.launchMovieDetailsActivity(getContext(), id);
+    public void itemClicked(String id, String title) {
+        MovieDetailsActivity.launchMovieDetailsActivity(getContext(), id, title);
     }
 
     public void refreshResponse(String query) {

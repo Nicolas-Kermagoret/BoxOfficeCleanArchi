@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawerThriller:
                 this.listFragment.refreshResponse("genre 53");
                 break;
-            case R.id.drawerAccount:
-                menuItem.setChecked(false);
-                break;
+//            case R.id.drawerAccount:
+//                menuItem.setChecked(false);
+//                break;
             case R.id.drawerAbout:
                 menuItem.setChecked(false);
                 startActivity(new Intent(this, AboutActivity.class));

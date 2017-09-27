@@ -77,11 +77,11 @@
         android:id="@+id/menu_account"
         android:checkableBehavior="none">
 
-        <item
-            android:id="@+id/drawerAccount"
-            android:checkable="false"
-            android:icon="@drawable/ic_account_circle_24dp"
-            android:title="@string/account" />
+        <!--<item-->
+        <!--android:id="@+id/drawerAccount"-->
+        <!--android:checkable="false"-->
+        <!--android:icon="@drawable/ic_account_circle_24dp"-->
+        <!--android:title="@string/account" />-->
         <item
             android:id="@+id/drawerAbout"
             android:checkable="false"

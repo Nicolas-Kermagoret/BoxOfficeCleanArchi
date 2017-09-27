@@ -18,7 +18,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private Context context;
 
     public interface MoviesListItemListener {
-        void itemClicked(String id);
+        void itemClicked(String id, String title);
     }
 
     private MoviesListItemListener listener;
@@ -60,7 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             @Override
             public void onClick(View v) {
-                listener.itemClicked(movieList.getSearch().get(position).getId());
+                listener.itemClicked(movieList.getSearch().get(position).getId(), movieList.getSearch().get(position).getTitle());
             }
         });
     }
