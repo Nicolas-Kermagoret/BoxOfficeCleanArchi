@@ -4,13 +4,13 @@
         <item
             android:id="@+id/drawerPopular"
             android:checked="true"
-            android:icon="@drawable/popular"
+            android:icon="@drawable/ic_popular_24dp"
             android:title="@string/popular" />
 
         <item
             android:id="@+id/drawerRated"
             android:checked="false"
-            android:icon="@drawable/star"
+            android:icon="@drawable/ic_star_24dp"
             android:title="@string/rated" />
 
         <item android:title="Genre">
