@@ -1,5 +1,8 @@
 package com.example.nicolaskermagoret.boxofficeclean.common.net;
 
+import android.content.Context;
+
+import com.example.nicolaskermagoret.boxofficeclean.R;
 import com.example.nicolaskermagoret.boxofficeclean.common.services.WebService;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.entity.MovieEntityFull;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
@@ -32,11 +35,15 @@ public class RestApiImpl implements RestApi {
     private static final int CACHE_MAX_SIZE = 10 * 1024 * 1024;
     private static final int TIME_OUT_SECOND = 10;
 
-    private RestApi restApi;
     private WebService webService;
     private boolean connected;
+    private Context context;
 
-    public RestApiImpl(File cacheDir) {
+    private String api_key = "";
+
+    public RestApiImpl(File cacheDir, Context context) {
+        this.context = context;
+        this.api_key = context.getString(R.string.api_key);
         initApi(cacheDir);
     }
 
@@ -80,21 +87,21 @@ public class RestApiImpl implements RestApi {
                 String searchSplit[] = search.split(" ");
                 Call<SearchResultEntity> webCall = null;
                 if (searchSplit.length == 1) {
-                    if (searchSplit[0].equals("popular")) {
-                        webCall = webService.getPopularMovie(language);
-                    } else if (searchSplit[0].equals("rated")) {
-                        webCall = webService.getBestRatedMovie(language);
+                    if (searchSplit[0].equals(context.getString(R.string.category_popular))) {
+                        webCall = webService.getPopularMovie(api_key, language);
+                    } else if (searchSplit[0].equals(context.getString(R.string.category_rated))) {
+                        webCall = webService.getBestRatedMovie(api_key, language);
                     }
                 } else {
-                    if (searchSplit[0].equals("genre")) {
-                        webCall = webService.getGenreMovie(searchSplit[1], language);
-                    } else if (searchSplit[0].equals("search")) {
+                    if (searchSplit[0].equals(context.getString(R.string.category_genre))) {
+                        webCall = webService.getGenreMovie(searchSplit[1], api_key, language);
+                    } else if (searchSplit[0].equals(context.getString(R.string.category_search))) {
                         String search = "";
                         int size = searchSplit.length;
                         for (int i = 1; i < size; i++) {
                             search += searchSplit[i] + " ";
                         }
-                        webCall = webService.searchMovie(search, language);
+                        webCall = webService.searchMovie(api_key, search, language);
                     }
                 }
                 try {
@@ -117,7 +124,7 @@ public class RestApiImpl implements RestApi {
             public void subscribe(ObservableEmitter<MovieEntityFull> e) throws Exception {
 
 
-                Call<MovieEntityFull> webCall = webService.getMovie(language, id);
+                Call<MovieEntityFull> webCall = webService.getMovie(id, api_key, language);
                 try {
                     final Response<MovieEntityFull> webResponse = webCall.execute();
                     final MovieEntityFull response = webResponse.body();
@@ -137,7 +144,7 @@ public class RestApiImpl implements RestApi {
             public void subscribe(ObservableEmitter<SuggestionResultEntity> subscriber) throws Exception {
 
 
-                Call<SuggestionResultEntity> webCall = webService.getSuggestion(query);
+                Call<SuggestionResultEntity> webCall = webService.getSuggestion(api_key, query);
                 try {
                     final Response<SuggestionResultEntity> webResponse = webCall.execute();
                     final SuggestionResultEntity response = webResponse.body();

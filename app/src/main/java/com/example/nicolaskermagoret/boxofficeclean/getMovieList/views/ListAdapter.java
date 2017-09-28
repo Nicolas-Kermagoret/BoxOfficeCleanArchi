@@ -1,12 +1,12 @@
 package com.example.nicolaskermagoret.boxofficeclean.getMovieList.views;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.nicolaskermagoret.boxofficeclean.R;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieList.entity.SearchResultEntity;
@@ -49,7 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     .into(holder.imageView);
         } else {
             Picasso.with(context)
-                    .load("https://image.tmdb.org/t/p/w500" + movieList.getSearch().get(position).getPoster())
+                    .load(context.getString(R.string.picture_path) + movieList.getSearch().get(position).getPoster())
                     .placeholder(R.drawable.not_available)
                     .fit()
                     .centerCrop()

@@ -20,7 +20,7 @@ public class GetMovieDetails implements GetMovieDetailBaseUseCase {
     @Override
     public void refreshResponse(String language, String id) {
 
-        this.restApi.getMovieDetails(language, id)
+        this.restApi.getMovieDetails(id, language)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MovieEntityFull>() {

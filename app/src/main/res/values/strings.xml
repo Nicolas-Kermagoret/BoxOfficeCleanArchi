@@ -32,4 +32,26 @@
     <string name="github_link">https://github.com/Nicolas-Kermagoret/BoxOfficeCleanArchi</string>
     <string name="share_message">Just discovered a cool movie: %1$s \nCheck this out: https://www.themoviedb.org/movie/%2$s</string>
     <string name="share">Share it</string>
+
+    <string name="category_popular">popular</string>
+    <string name="category_rated">rated</string>
+    <string name="category_action">genre 28</string>
+    <string name="category_aventure">genre 12</string>
+    <string name="category_animation">genre 16</string>
+    <string name="category_comedy">genre 35</string>
+    <string name="category_documentary">genre 99</string>
+    <string name="category_drama">genre 18</string>
+    <string name="category_family">genre 10751</string>
+    <string name="category_horror">genre 27</string>
+    <string name="category_sf">genre 878</string>
+    <string name="category_thriller">genre 53</string>
+    <string name="category_genre">genre</string>
+    <string name="category_search">search</string>
+    <string name="not_available">N/A</string>
+    <string name="picture_path">https://image.tmdb.org/t/p/w500</string>
+    <string name="minutes">min</string>
+
+
+    <string name="api_key">41ee868c27200b33a3ac13ba6796bd08</string>
+
 </resources>

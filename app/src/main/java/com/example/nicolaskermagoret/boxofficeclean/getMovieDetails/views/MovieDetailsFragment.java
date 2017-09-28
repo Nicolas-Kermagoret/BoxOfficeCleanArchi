@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +22,8 @@ import com.squareup.picasso.Picasso;
 
 
 public class MovieDetailsFragment extends Fragment implements BaseDetailsView {
+
+    public static final String EXTRA_ID = "id";
 
     private View view;
     private DetailsBasePresenter presenter;
@@ -47,8 +48,8 @@ public class MovieDetailsFragment extends Fragment implements BaseDetailsView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
-        this.id = args.getString("id");
-        final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
+        this.id = args.getString(EXTRA_ID);
+        final RestApi restApi = new RestApiImpl(getContext().getCacheDir(), getContext());
         final GetMovieDetailBaseUseCase useCase = new GetMovieDetails(restApi);
 
         this.presenter = new MovieDetailsPresenter(getContext(), useCase);

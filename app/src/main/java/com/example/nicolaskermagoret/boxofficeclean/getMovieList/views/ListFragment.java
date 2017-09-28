@@ -45,7 +45,7 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
+        final RestApi restApi = new RestApiImpl(getContext().getCacheDir(), getContext());
         final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
         if (savedInstanceState != null) {
             this.query = savedInstanceState.getString(QUERY);

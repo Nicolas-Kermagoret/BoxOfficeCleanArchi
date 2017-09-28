@@ -3,7 +3,6 @@ package com.example.nicolaskermagoret.boxofficeclean.search.views;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +29,8 @@ import com.example.nicolaskermagoret.boxofficeclean.search.usecase.SuggestionUse
 import com.example.nicolaskermagoret.boxofficeclean.search.viewModel.SuggestionsBaseViewModel;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, SearchBaseView {
+
+    public static final String CURSOR_ROW = "COLUMNT_INTENT_DATA";
 
     private SearchView searchView;
     private ListFragment listFragment;
@@ -54,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
         listFragment = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.searchFragment);
 
-        final RestApi restApi = new RestApiImpl(this.getCacheDir());
+        final RestApi restApi = new RestApiImpl(this.getCacheDir(), this);
         final SuggestionBaseUseCase useCase = new SuggestionUseCase(restApi);
         this.suggestionPresenter = new SuggestionPresenter(useCase);
         this.suggestionPresenter.onViewAttached(this);
@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         }
 
         if (listFragment != null) {
-            listFragment.refreshResponse("search " + query);
+            listFragment.refreshResponse(getString(R.string.category_search) + " " + query);
         }
 
         if (searchView != null) {
@@ -125,7 +125,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         MatrixCursor cursor = new MatrixCursor(columns);
 
         for (SuggestionEntity entity : viewModel.getSuggestionList().getResults()) {
-            String[] tmp = {Integer.toString(i), entity.getName(), "COLUMNT_INTENT_DATA"};
+            String[] tmp = {Integer.toString(i), entity.getName(), CURSOR_ROW};
             cursor.addRow(tmp);
             if (i == 5) {
                 break;
@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         String query = cursor.getString(cursor
                 .getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
         if (listFragment != null) {
-            listFragment.refreshResponse("search " + query);
+            listFragment.refreshResponse(getString(R.string.category_search) + " " + query);
         }
 
         searchView.setQuery(query, true);

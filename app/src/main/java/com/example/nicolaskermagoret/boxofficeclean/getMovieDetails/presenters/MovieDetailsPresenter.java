@@ -48,7 +48,7 @@ public class MovieDetailsPresenter implements DetailsBasePresenter, GetMovieDeta
     @Override
     public void setResponse(MovieEntityFull movie) {
         this.view.loading(false);
-        final MovieDetailBaseViewModel movieDetailBaseViewModel = new MovieDetailsViewModel(movie);
+        final MovieDetailBaseViewModel movieDetailBaseViewModel = new MovieDetailsViewModel(movie, context);
         this.view.setResponse(movieDetailBaseViewModel);
     }
 

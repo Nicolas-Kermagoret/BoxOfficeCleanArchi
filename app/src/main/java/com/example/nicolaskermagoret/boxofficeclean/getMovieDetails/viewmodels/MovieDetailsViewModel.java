@@ -1,5 +1,8 @@
 package com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.viewmodels;
 
+import android.content.Context;
+
+import com.example.nicolaskermagoret.boxofficeclean.R;
 import com.example.nicolaskermagoret.boxofficeclean.common.viewmodels.BaseViewModel;
 import com.example.nicolaskermagoret.boxofficeclean.getMovieDetails.entity.MovieEntityFull;
 
@@ -12,9 +15,11 @@ import java.util.Locale;
 public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseViewModel {
 
     MovieEntityFull movie;
+    Context context;
 
-    public MovieDetailsViewModel(MovieEntityFull movie) {
+    public MovieDetailsViewModel(MovieEntityFull movie, Context context) {
         this.movie = movie;
+        this.context = context;
     }
 
     @Override
@@ -31,7 +36,7 @@ public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseView
     public String getReleaseDate() {
         String year = movie.getYear();
         if (year.equals("")) {
-            year = "1789-07-14";
+            return context.getString(R.string.not_available);
         }
 
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,22 +54,22 @@ public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseView
 
     @Override
     public String getBackDropPath() {
-        return "https://image.tmdb.org/t/p/w500" + movie.getBackdropPath();
+        return context.getString(R.string.picture_path) + movie.getBackdropPath();
     }
 
     @Override
     public String getRunTime() {
-        if (movie.getRuntime() == null) {
-            return "N/A";
+        if (movie.getRuntime() == 0) {
+            return context.getString(R.string.not_available);
         } else {
-            return movie.getRuntime().toString() + "min";
+            return movie.getRuntime().toString() + context.getString(R.string.minutes);
         }
     }
 
     @Override
     public String getCountry() {
         if (movie.getProductionCountries().size() == 0) {
-            return "N/A";
+            return context.getString(R.string.not_available);
         } else {
             return movie.getProductionCountries().get(0).getName();
         }
@@ -78,7 +83,7 @@ public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseView
     @Override
     public String getOverview() {
         if (movie.getOverview() == null) {
-            return "N/A";
+            return context.getString(R.string.not_available);
         } else {
             return movie.getOverview();
         }
@@ -87,7 +92,7 @@ public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseView
     @Override
     public String getGenres() {
         if (movie.getGenres().size() == 0) {
-            return "N/A";
+            return context.getString(R.string.not_available);
         } else {
             String genreList = "";
             for (MovieEntityFull.Genre genre : movie.getGenres()) {
@@ -101,7 +106,7 @@ public class MovieDetailsViewModel implements MovieDetailBaseViewModel, BaseView
     @Override
     public String getBudget() {
         if (movie.getBudget() == 0) {
-            return "N/A";
+            return context.getString(R.string.not_available);
         } else {
             return movie.getBudget().toString() + "$";
         }

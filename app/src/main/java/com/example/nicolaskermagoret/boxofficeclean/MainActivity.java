@@ -51,16 +51,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-//        handleIntent(getIntent());
-
         FragmentManager fm = getSupportFragmentManager();
         this.listFragment = (ListFragment) fm.findFragmentByTag(ListFragment.TAG);
-
-        // create the fragment and data the first time
         if (this.listFragment == null) {
             this.listFragment = ListFragment.newInstance();
             Bundle args = new Bundle();
-            args.putString("query", "popular");
+            args.putString(ListFragment.QUERY, getString(R.string.category_popular));
             this.listFragment.setArguments(args);
         }
 
@@ -86,40 +82,40 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.drawerPopular:
-                this.listFragment.refreshResponse("popular");
+                this.listFragment.refreshResponse(getString(R.string.category_popular));
                 break;
             case R.id.drawerRated:
-                this.listFragment.refreshResponse("rated");
+                this.listFragment.refreshResponse(getString(R.string.category_rated));
                 break;
             case R.id.drawerAction:
-                this.listFragment.refreshResponse("genre 28");
+                this.listFragment.refreshResponse(getString(R.string.category_action));
                 break;
             case R.id.drawerAventure:
-                this.listFragment.refreshResponse("genre 12");
+                this.listFragment.refreshResponse(getString(R.string.category_aventure));
                 break;
             case R.id.drawerAnimation:
-                this.listFragment.refreshResponse("genre 16");
+                this.listFragment.refreshResponse(getString(R.string.category_animation));
                 break;
             case R.id.drawerComedie:
-                this.listFragment.refreshResponse("genre 35");
+                this.listFragment.refreshResponse(getString(R.string.category_comedy));
                 break;
             case R.id.drawerDocumentary:
-                this.listFragment.refreshResponse("genre 99");
+                this.listFragment.refreshResponse(getString(R.string.category_documentary));
                 break;
             case R.id.drawerDrama:
-                this.listFragment.refreshResponse("genre 18");
+                this.listFragment.refreshResponse(getString(R.string.category_drama));
                 break;
             case R.id.drawerFamily:
-                this.listFragment.refreshResponse("genre 10751");
+                this.listFragment.refreshResponse(getString(R.string.category_family));
                 break;
             case R.id.drawerHorror:
-                this.listFragment.refreshResponse("genre 27");
+                this.listFragment.refreshResponse(getString(R.string.category_horror));
                 break;
             case R.id.drawerSF:
-                this.listFragment.refreshResponse("genre 878");
+                this.listFragment.refreshResponse(getString(R.string.category_sf));
                 break;
             case R.id.drawerThriller:
-                this.listFragment.refreshResponse("genre 53");
+                this.listFragment.refreshResponse(getString(R.string.category_thriller));
                 break;
 //            case R.id.drawerAccount:
 //                menuItem.setChecked(false);
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             default:
-                this.listFragment.refreshResponse("popular");
+                this.listFragment.refreshResponse(getString(R.string.category_popular));
         }
     }
 }

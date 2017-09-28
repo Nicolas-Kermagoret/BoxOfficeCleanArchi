@@ -15,8 +15,8 @@ import com.example.nicolaskermagoret.boxofficeclean.R;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
-    public static String EXTRA_ID = "id";
-    public static String EXTRA_TITLE = "title";
+    public static final String EXTRA_ID = "id";
+    public static final String EXTRA_TITLE = "title";
 
     private ShareActionProvider shareActionProvider;
 
@@ -25,8 +25,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     public static void launchMovieDetailsActivity(Context context, String id, String title) {
         final Intent movieIntent = new Intent(context, MovieDetailsActivity.class);
-        movieIntent.putExtra("id", id);
-        movieIntent.putExtra("title", title);
+        movieIntent.putExtra(EXTRA_ID, id);
+        movieIntent.putExtra(EXTRA_TITLE, title);
         context.startActivity(movieIntent);
     }
 
