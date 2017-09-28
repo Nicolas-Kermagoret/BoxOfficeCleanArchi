@@ -25,6 +25,7 @@ import com.example.nicolaskermagoret.boxofficeclean.getMovieList.viewmodels.Resp
 public class ListFragment extends Fragment implements BaseListView, ListAdapter.MoviesListItemListener {
 
     public static final String TAG = ListFragment.class.getSimpleName();
+    public static final String QUERY = "query";
 
     private ListBasePresenter listBasePresenter;
     private RecyclerView recyclerView;
@@ -46,9 +47,13 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final RestApi restApi = new RestApiImpl(getContext().getCacheDir());
         final GetMovieListBaseUseCase getMovieListBaseUseCase = new GetMovieList(restApi);
-        Bundle args = getArguments();
-        if (args != null) {
-            this.query = args.getString("query");
+        if (savedInstanceState != null) {
+            this.query = savedInstanceState.getString(QUERY);
+        } else {
+            Bundle args = getArguments();
+            if (args != null) {
+                this.query = args.getString(QUERY);
+            }
         }
 
         this.listBasePresenter = new MovieListPresenter(getContext(), getMovieListBaseUseCase);
@@ -88,6 +93,12 @@ public class ListFragment extends Fragment implements BaseListView, ListAdapter.
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(QUERY, query);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

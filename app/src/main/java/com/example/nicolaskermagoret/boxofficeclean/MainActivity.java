@@ -1,8 +1,10 @@
 package com.example.nicolaskermagoret.boxofficeclean;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,10 +53,17 @@ public class MainActivity extends AppCompatActivity {
 
 //        handleIntent(getIntent());
 
-        this.listFragment = ListFragment.newInstance();
-        Bundle args = new Bundle();
-        args.putString("query", "popular");
-        this.listFragment.setArguments(args);
+        FragmentManager fm = getSupportFragmentManager();
+        this.listFragment = (ListFragment) fm.findFragmentByTag(ListFragment.TAG);
+
+        // create the fragment and data the first time
+        if (this.listFragment == null) {
+            this.listFragment = ListFragment.newInstance();
+            Bundle args = new Bundle();
+            args.putString("query", "popular");
+            this.listFragment.setArguments(args);
+        }
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, this.listFragment, ListFragment.TAG).commit();
 
